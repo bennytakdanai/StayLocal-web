@@ -1,13 +1,19 @@
 import React from 'react'
 
-function TextInput({children}) {
+function TextInput({type,placeholder,onchange,value,name,inputerr}) {
+ 
   return (
-    <div className='flex flex-col items-center gap-2'>
-        <label className='text-xl'>{children}</label>
+    <div className='flex flex-col items-center '>
+        <label className='text-xl mt-2'>Enter {name}</label>
         <input 
-            type='text' className='w-full bg-[#D8B998] px-3 py-2 rounded-md '
-            placeholder={`${children}...`}
+            className='w-450 bg-[#D8B998] px-3 py-2 rounded-md mt-2'
+            placeholder={placeholder}
+            onChange={onchange}
+            value={value}
+            name={name}
+            type={type}
         />
+        {inputerr?<small className=' text-red-600'>{inputerr}</small>:<></>}
     </div>
   )
 }
