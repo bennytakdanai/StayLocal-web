@@ -11,7 +11,7 @@ function HomePage() {
   return (
     <>
     <Header/>
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center justify-center'>
         
         <div className=' relative w-full'>
             <img src={boat} className=' w-full'></img>
@@ -23,12 +23,13 @@ function HomePage() {
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem suscipit optio excepturi, sequi maxime velit, odit, ipsam consequuntur voluptatum quibusdam ab voluptatem beatae aut consequatur. Nostrum optio repudiandae molestias modi.</p>
         </div>
         <img src={tea} className=' w-full'></img>
-        <div className='flex flex-col items-center p-5 gap-4 m-5 w-3/4'>
-            <div className='text-6xl'>Explore Our Tours</div>
+        
+        <div className='flex flex-col items-center p-5 gap-4 m-5 w-3/4' id='tourSection'>
+            <div className='text-6xl text-center'>Explore Our Tours</div>
             <p>sequi maxime velit, odit, Nostrum optio repudiandae molestias modi.</p>
             
         </div>
-        <div className='flex gap-10 p-5 '>
+        <div className='flex gap-10 p-5 ' >
             <SelectDate/>
             <SelectBar optionArr={['Tour type','b','c','d']}/>
             <SelectBar optionArr={['Tour cost','b','c','d']}/>
@@ -44,6 +45,7 @@ function HomePage() {
             <Card/>
     
         </div>
+        
     </div>
     </>
   )

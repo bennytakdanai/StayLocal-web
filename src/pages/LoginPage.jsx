@@ -4,7 +4,9 @@ import Button from '../components/Button'
 import { useState } from 'react'
 import axios from '../config/axios'
 import validateLogin from '../features/validations/validate-login'
-import { text } from '@fortawesome/fontawesome-svg-core'
+import { Link } from 'react-router-dom'
+
+
 
 function LoginPage() {
   const [input,setInput] = useState({username:"",password:""})
@@ -33,7 +35,7 @@ function LoginPage() {
     }
 
   }
-  const handleRegister =()=>{}
+  
   
   return (
     <div className='flex flex-col items-center gap-8'>
@@ -61,7 +63,9 @@ function LoginPage() {
               />
             <div className='flex justify-around gap-8 m-14'>
                 <Button type={"submit"}>Log In</Button>
-                <Button type={"button"}>Register</Button>
+                <Link to={"/register"}>
+                  <Button type={"button"} >Register</Button>
+                </Link>
             </div>
         </form>
     </div>
