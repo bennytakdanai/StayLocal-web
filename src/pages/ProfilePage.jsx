@@ -21,7 +21,7 @@ function ProfilePage() {
         </div>
         <div className='flex m-20 justify-around'>
             <div className=' text-4xl'>Your Trip</div>
-            <Button>Create New Tour</Button>
+            {user.isGuide && <Button>Create New Tour</Button>}
         </div>
         <div className='flex flex-col items-center gap-10 mb-10'>
             <TripItem/>

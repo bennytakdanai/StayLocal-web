@@ -1,7 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import useAuth from '../hooks/useAuth'
 
 function Header() {
+  const {user} = useAuth()
   return (
     <div className=' bg-[#F1F5F9] w-full h-[100px] flex justify-around items-center'>
         <h1 className=' text-5xl'>LocalHome</h1>
@@ -17,9 +19,14 @@ function Header() {
           <Link to={{pathname: '/', hash: '#tourSection'}}>
             <p>Stay & Tour</p>
           </Link>
+          {user
+          ?
           <Link to={'/login'}>
             <p>Login</p>
           </Link>
+          :
+          <p>logout</p>
+          }
         </div>
     </div>
   )
