@@ -21,7 +21,9 @@ function LoginPage() {
       console.log(validateLogin(input))
       setInputError(validateLogin(input))
     }else {
-      await axios.post('/auth/login',input)
+      const result = await axios.post('/auth/login',input)
+      const token = result.data.token
+      localStorage.setItem("token",token)
       console.log('login finish')
 
     }

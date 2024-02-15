@@ -28,8 +28,10 @@ function RegisterPage() {
             if(validateRegister(input)){
                 setInputError(validateRegister(input))
             }else {
-                await axios.post('/auth/register',input)
-                console.log('rgister finish')
+                const result = await axios.post('/auth/register',input)
+                const token = result.data.token
+                localStorage.setItem("token",token)
+                console.log('register finish')
             }
         }catch(err){
             console.log(err)
