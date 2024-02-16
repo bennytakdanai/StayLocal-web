@@ -4,19 +4,26 @@ import RegisterPage from "../pages/RegisterPage";
 import HomePage from "../pages/HomePage";
 import { RouterProvider } from "react-router-dom";
 import ProfilePage from "../pages/ProfilePage";
+import ProtectedRoute from "./ProtectedRoute";
+import RedirectIfAuth from "./RedirectIfAuth";
 
 
 const router = createBrowserRouter([
     {
         path: '/login',
         element: (
+        <RedirectIfAuth>
             <LoginPage/>
+
+        </RedirectIfAuth>
         )
     },
     {
         path: '/register',
         element:(
+        <RedirectIfAuth>
             <RegisterPage/>
+        </RedirectIfAuth>
         )
 
     },
@@ -29,7 +36,9 @@ const router = createBrowserRouter([
     {
         path: '/profile',
         element:(
-            <ProfilePage/>
+            <ProtectedRoute>
+                <ProfilePage/>
+            </ProtectedRoute>
         )
     }
 ])

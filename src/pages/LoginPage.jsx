@@ -5,12 +5,14 @@ import { useState } from 'react'
 import axios from '../config/axios'
 import validateLogin from '../features/validations/validate-login'
 import { Link } from 'react-router-dom'
+import useAuth from '../hooks/useAuth'
 
 
 
 function LoginPage() {
   const [input,setInput] = useState({username:"",password:""})
   const [inputError,setInputError] = useState({})
+  const {login} = useAuth()
 
   const handleChange = (e)=>{
     setInput({...input, [e.target.name]:e.target.value})
@@ -23,11 +25,7 @@ function LoginPage() {
       console.log(validateLogin(input))
       setInputError(validateLogin(input))
     }else {
-      const result = await axios.post('/auth/login',input)
-      const token = result.data.token
-      localStorage.setItem("token",token)
-      console.log('login finish')
-
+      await login(input)
     }
 
     }catch(err){

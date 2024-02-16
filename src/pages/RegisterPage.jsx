@@ -5,6 +5,7 @@ import Button from '../components/Button'
 import axios from '../config/axios'
 import { useState } from 'react'
 import validateRegister from '../features/validations/validate-register'
+import useAuth from '../hooks/useAuth'
 
 function RegisterPage() {
     const [input,setInput] = useState({
@@ -17,6 +18,7 @@ function RegisterPage() {
         isGuide:''
     })
     const [inputError,setInputError]= useState({})
+    const {register} = useAuth()
 
     const handleChange = (e) =>{
         setInput({...input,[e.target.name]:e.target.value})
@@ -28,10 +30,7 @@ function RegisterPage() {
             if(validateRegister(input)){
                 setInputError(validateRegister(input))
             }else {
-                const result = await axios.post('/auth/register',input)
-                const token = result.data.token
-                localStorage.setItem("token",token)
-                console.log('register finish')
+                await register(input)
             }
         }catch(err){
             console.log(err)

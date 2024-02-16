@@ -17,10 +17,14 @@ function ProfilePage() {
                 <Avatar/> 
                 <small>Edit profile picture</small>  
             </div>
-            <div className='text-6xl m-10 text-center'>Welcome: {user.username}</div>
+            <div className='flex flex-col'>
+                <div className='text-6xl m-10 text-center'>Welcome: {user.username}</div>
+                <div className='text-xl m-1 text-center'>{user.firstname} {user.lastname}</div>
+            </div>
         </div>
+        
         <div className='flex m-20 justify-around'>
-            <div className=' text-4xl'>Your Trip</div>
+            <div className=' text-5xl'>Your Trip</div>
             {user.isGuide && <Button>Create New Tour</Button>}
         </div>
         <div className='flex flex-col items-center gap-10 mb-10'>
