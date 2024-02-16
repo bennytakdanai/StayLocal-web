@@ -6,6 +6,7 @@ import { RouterProvider } from "react-router-dom";
 import ProfilePage from "../pages/ProfilePage";
 import ProtectedRoute from "./ProtectedRoute";
 import RedirectIfAuth from "./RedirectIfAuth";
+import TourPage from "../pages/TourPage";
 
 
 const router = createBrowserRouter([
@@ -31,6 +32,12 @@ const router = createBrowserRouter([
         path: '/',
         element:(
             <HomePage/>
+        )
+    },
+    {
+        path: '/tour',
+        element:(
+            <TourPage/>
         )
     },
     {

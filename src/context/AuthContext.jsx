@@ -19,7 +19,6 @@ export default function AuthContextProvider(props){
                 if(token){
                     const result = await axios.get('/auth/me',
                     {headers: {Authorization : `Bearer ${token}`}})
-                    console.log(result)
                     setUser(result.data.user)
                 }
             }catch(err){

@@ -4,7 +4,11 @@ function SelectDate() {
     let date = new Date()
 
   return (
-    <input type='date' min={new Date().toJSON().slice(0, 10)}>
+    <input 
+      type='date' 
+      min={new Date().toJSON().slice(0, 10)}
+
+    >
     </input>
   )
 }
