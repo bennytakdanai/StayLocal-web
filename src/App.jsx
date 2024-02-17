@@ -1,10 +1,6 @@
 import Spinner from "./components/Spinner"
 import useAuth from "./hooks/useAuth"
-import HomePage from "./pages/HomePage"
-import LoginPage from "./pages/LoginPage"
-import ProfilePage from "./pages/ProfilePage"
-import RegisterPage from "./pages/RegisterPage"
-import TourPage from "./pages/TourPage"
+import { ToastContainer, Slide } from 'react-toastify';
 import Router from "./route/route"
 
 function App() {
@@ -13,11 +9,13 @@ function App() {
   return (
     <div >
       <Router/>
-      {/* <HomePage/> */}
-      {/* <TourPage/> */}
-      {/* <LoginPage/> */}
-      {/* <RegisterPage/> */}
-      {/* <ProfilePage/> */}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        theme="colored"
+        transition={Slide}
+      />
+      
      
     </div>
   )

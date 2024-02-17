@@ -26,10 +26,12 @@ function LoginPage() {
       setInputError(validateLogin(input))
     }else {
       await login(input)
+      toast.success('login successfully')
     }
 
     }catch(err){
       console.log(err)
+      toast.error(err.response?.data.message)
     }
 
   }

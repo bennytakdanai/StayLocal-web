@@ -10,11 +10,18 @@ import PlusMinus from '../components/PlusMinus'
 import useTour from '../hooks/useTour'
 import { useEffect } from 'react'
 import { useState } from 'react'
-
+import useAuth from '../hooks/useAuth'
+import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import BookingForm from '../features/tour/BookingForm'
 
 function TourPage() {
     const [tour,setTour] = useState({})
+
+    const {id:tourId} = useParams()
     const {getTourFromTourId} = useTour()
+    const {user} = useAuth()
+    console.log(user)
 
     useEffect(()=>{
         const run = async(tourId)=>{
@@ -25,7 +32,7 @@ function TourPage() {
                 console.log(err)
             }
         }
-        run(1)
+        run(tourId) /////////// mock id
     },[])
     // console.log(tour)
 
@@ -55,12 +62,16 @@ function TourPage() {
             <div className=' flex-1  w-2/3 '>
                PROGRAM: {tour.tourProgram}
             </div>
-            <div className='flex-1 w-1/3 p-10 flex flex-col gap-3 items-center'>
+            <div className='flex-1 w-1/3 p-10 flex flex-col gap-5 items-center'>
                 <p>Tour type : {tour.type}</p>
                 <ReviewStar/>
                 <p>Review By 100 users</p>
-                <div className='flex gap-2'>Group <PlusMinus/> people</div>
-                <Button>Join Us</Button>
+                <BookingForm 
+                    tourId={tourId} 
+                    user={user}
+                    groupSize={tour.groupSize}
+                />
+                
             </div>
         </div>
        
