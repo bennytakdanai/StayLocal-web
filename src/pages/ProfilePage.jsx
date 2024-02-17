@@ -1,38 +1,16 @@
 import React from 'react'
 import Header from '../layouts/Header'
 import Avatar from '../components/Avatar'
-import Button from '../components/Button'
-import TripItem from '../components/TripItem'
 import Modal from '../components/Modal'
 import useAuth from '../hooks/useAuth'
 import useTour from '../hooks/useTour'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import ProfileTourList from '../features/profile/ProfileTourList'
+import ProfileBookingList from '../features/profile/ProfileBookingList'
 
 function ProfilePage() {
     const {user} = useAuth()
-    const {getTourFromGuideId} = useTour()
-    const [guideTours,setGuideTours] = useState([])
-
-    let guideId = ''
-    if(user?.isGuide){
-        guideId = user.id
-    }
-    useEffect(()=>{
-        const run = async (guideId) =>{
-            try{
-                const tours = await getTourFromGuideId(guideId)
-                console.log(tours)
-                setGuideTours(tours)
-                
-            }catch(err){
-                console.log(err)
-            }
-        } 
-        run()
-    },[])
-
-    console.log(guideTours)
 
   return (
     <div>
@@ -48,23 +26,12 @@ function ProfilePage() {
             </div>
         </div>
         
-        <div className='flex m-20 justify-around'>
-            <div className=' text-5xl'>{user.isGuide?'Trip List':'Your Trip'}</div>
-            {user.isGuide && <Button>Create New Tour</Button>}
-        </div>
-        <div className='flex flex-col items-center gap-10 mb-10'>
-            {guideTours.map((el)=> {
-                return <TripItem 
-                    key={el.id}
-                    name={el.name}
-                    duration={el.duration} 
-                    price={el.price}
-                    date={el.date}
-                />
-            }
-            )}
-            
-        </div>
+        {user.isGuide
+        ?
+        <ProfileTourList user={user}/>
+        :
+       <ProfileBookingList user={user}/>
+        }
     </div>
   )
 }

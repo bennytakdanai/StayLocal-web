@@ -4,6 +4,7 @@ import Button from '../../components/Button'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import useBooking from '../../hooks/useBooking'
+import { toast } from 'react-toastify'
 
 function BookingForm({user,tourId,groupSize}) {
   tourId= +tourId
@@ -13,8 +14,13 @@ function BookingForm({user,tourId,groupSize}) {
 
   const handleCreateBooking = async()=>{
     const data = {tourId,numberOfPeople:count}
-  
-    await createBooking(data)
+    try{
+      await createBooking(data)
+      toast.success('booking success')
+
+    }catch(err){
+      toast.error(err.response?.data.message)
+    }
   }
 
   return (

@@ -12,9 +12,14 @@ export default function BookingContextProvider(props){
         return result.data.booking
     })
 
+    const getClientBooking = (async(clientId)=>{
+        const result = await axios.get('/booking',clientId)
+        return result.data.clientBooking
+    })
+
 
     return(
-        <BookingContext.Provider value={{createBooking}}>
+        <BookingContext.Provider value={{createBooking,getClientBooking}}>
             {props.children}
         </BookingContext.Provider>
     )
