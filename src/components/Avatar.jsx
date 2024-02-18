@@ -1,10 +1,13 @@
 import React from 'react'
 import avatar from '../assets/avatar.jpg'
 
-function Avatar() {
+function Avatar({src}) {
   return (
     <div>
-        <img src={avatar} alt="profilepic" />
+        <img 
+        className=' w-44 h-44 rounded-full'
+          src={ src ||avatar} alt="profilepic" 
+        />
     </div>
   )
 }
