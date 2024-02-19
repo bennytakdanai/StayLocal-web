@@ -35,13 +35,14 @@ function ProfileTourList({user}) {
         </div>
         <div className='flex flex-col items-center gap-10 mb-10'>
             {guideTours.map((el)=> {
+                console.log(el)
                 return <TripItem 
                     key={el.id}
                     name={el.name}
                     duration={el.duration} 
                     price={el.price}
                     date={el.date}
-                />
+                />  
             }
             )}
             

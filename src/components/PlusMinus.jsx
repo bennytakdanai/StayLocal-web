@@ -4,6 +4,7 @@ import { faCirclePlus,faCircleMinus } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
 function PlusMinus({props}) {
+  
   const [count,setCount,groupSize] = props
   
   return (

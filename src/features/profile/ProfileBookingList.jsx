@@ -2,11 +2,15 @@ import React from 'react'
 import useBooking from '../../hooks/useBooking'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import TripItem from '../../components/TripItem'
+import BookingItem from '../../components/BookingItem'
 
 function ProfileBookingList({user}) {
-    const {getClientBooking} = useBooking()
+    const {getClientBooking,editClientBooking,cancelBooking} = useBooking()
     const [booking,setBooking] = useState([])
+
+    const [loading,setLoading] = useState(false)
+    
+  
 
     let clientId = user.id
 
@@ -14,7 +18,7 @@ function ProfileBookingList({user}) {
         const run = async(clientId)=>{
             try{
                 const bookings = await getClientBooking(clientId)
-                console.log(bookings)
+                // console.log(bookings)
                 setBooking(bookings)
 
             }catch(err){
@@ -22,7 +26,7 @@ function ProfileBookingList({user}) {
             }
         }
         run(clientId)
-    },[])
+    },[loading])
 
   return (
     <div>
@@ -31,12 +35,13 @@ function ProfileBookingList({user}) {
         </div>
         <div className='flex flex-col items-center gap-10 mb-10'>
             {booking.map((el)=> {
-                return <TripItem 
+         
+                return <BookingItem 
                     key={el.id}
-                    name={el.tour.name}
-                    duration={el.tour.duration} 
-                    price={el.tour.price}
-                    date={el.tour.date}
+                    booking ={el}
+                    editClientBooking={editClientBooking}
+                    cancelBooking={cancelBooking}
+                    setLoading={setLoading}
                     />
                 }
             )}

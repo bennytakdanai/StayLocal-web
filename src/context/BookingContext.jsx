@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import axios from "../config/axios";
 import { createContext } from "react";
 
@@ -17,9 +18,27 @@ export default function BookingContextProvider(props){
         return result.data.clientBooking
     })
 
+    const editClientBooking = (async(numberOfPeople,id)=>{
+        const result = await axios.patch('/booking',{numberOfPeople,id})
+        return result.data.bookingEdited
+    })
+
+    const cancelBooking = (async(id)=>{
+        console.log(id)
+        try{
+            const result = await axios.delete(`/booking/${id}`)
+            console.log(result)
+            // toast.success('cancel complete')
+            return result.data.bookingCancel
+
+        }catch(err){
+            console.log(err)
+        }
+    })
+
 
     return(
-        <BookingContext.Provider value={{createBooking,getClientBooking}}>
+        <BookingContext.Provider value={{createBooking,getClientBooking,editClientBooking,cancelBooking}}>
             {props.children}
         </BookingContext.Provider>
     )

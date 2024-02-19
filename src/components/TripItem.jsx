@@ -16,10 +16,10 @@ function TripItem({name,duration,date,price}) {
                 <div className='text-xl m-2 text-center'>Price : {price} thB</div>
 
             </div>
-            <div className='flex flex-col gap-2'>
-                <FontAwesomeIcon className=' text-xl' icon={faTrash} />
-                <FontAwesomeIcon className=' text-xl' icon={faPenToSquare} />
-                <FontAwesomeIcon className=' text-xl' icon={faEye} />
+            <div className='flex flex-col gap-5'>
+                <FontAwesomeIcon className=' text-xl hover:cursor-pointer' icon={faTrash} />
+                <FontAwesomeIcon className=' text-xl hover:cursor-pointer' icon={faPenToSquare} />
+                <FontAwesomeIcon className=' text-xl hover:cursor-pointer' icon={faEye} />
                 
             </div>
        
