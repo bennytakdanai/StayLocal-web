@@ -1,12 +1,14 @@
 import React from 'react'
 
-function SelectDate() {
-    let date = new Date()
+function SelectDate(name,onchange,value) {
 
   return (
     <input 
       type='date' 
       min={new Date().toJSON().slice(0, 10)}
+      name={name}
+      onChange={onchange}
+      value={value}
 
     >
     </input>

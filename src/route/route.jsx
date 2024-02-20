@@ -7,6 +7,7 @@ import ProfilePage from "../pages/ProfilePage";
 import ProtectedRoute from "./ProtectedRoute";
 import RedirectIfAuth from "./RedirectIfAuth";
 import TourPage from "../pages/TourPage";
+import CreateTourPage from "../pages/CreateTourPage";
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,12 @@ const router = createBrowserRouter([
         path: '/tour/:id/',
         element:(
             <TourPage/>
+        )
+    },
+    {
+        path: '/createtour',
+        element:(
+            <CreateTourPage/>
         )
     },
     {

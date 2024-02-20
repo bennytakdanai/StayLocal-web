@@ -13,18 +13,28 @@ function ProfilePage() {
     const fileEl = useRef()
     const {user} = useAuth()
     const [profilePicture,setProfilePicture] = useState(null)
+    const [toggle,setToggle] = useState(false)
 
     const handleEdit = async(e) =>{
-        if(e.target.files[0]){
-            setProfilePicture(e.target.files[0])
-
-            const formData = new FormData()
-            formData.append('profilePicture',profilePicture)
-            console.log(formData)
-            const result = await axios.patch('/user',formData)
-        }
+        // console.log(user.profilePicture)
+        setProfilePicture(e.target.files[0])
+        setToggle(true)
     }
 
+    const handleSaveProfile = async(e) =>{
+        const formData = new FormData()
+        formData.append('profilePicture',profilePicture)
+        const result = await axios.patch('/user',formData)
+        console.log(result)
+        console.log(formData)
+        setToggle(false)
+    
+}
+
+    const handleCancel = ()=>{
+        setToggle(false)
+        setProfilePicture(null)
+    }
 
   return (
     <div>
@@ -37,13 +47,30 @@ function ProfilePage() {
                     ref={fileEl}
                     onChange={handleEdit}
                 />
-                <Avatar src={profilePicture ? URL.createObjectURL(profilePicture) :'avatar'}/> 
+                <Avatar src={profilePicture ? URL.createObjectURL(profilePicture) :user.profilePicture}/> 
+                {toggle
+                ?
+                <div className='flex gap-3'>
+                    <button 
+                        className="text-blue-500 font-light hover:underline rounded-md"
+                        onClick={handleSaveProfile}
+                    >save</button>
+                    <button 
+                        className="text-blue-500 font-light hover:underline rounded-md"
+                        onClick={handleCancel}
+                    >cancel</button>
+                </div>
+                :
                 <button 
-                    className="text-blue-500 font-light hover:underline rounded-md"
-                    onClick={async()=>{ await fileEl.current.click()}}
+                className="text-blue-500 font-light hover:underline rounded-md"
+                onClick={
+                    async()=>{ 
+                        await fileEl.current.click()
+                    }}
                 >
                     Edit profile picture
                 </button>  
+                }
             </div>
             <div className='flex flex-col'>
                 <div className='text-6xl m-10 text-center'>Welcome: {user.username}</div>
