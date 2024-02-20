@@ -28,8 +28,7 @@ function ProfilePage() {
         console.log(result)
         console.log(formData)
         setToggle(false)
-    
-}
+    }
 
     const handleCancel = ()=>{
         setToggle(false)

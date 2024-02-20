@@ -7,6 +7,7 @@ import SelectDate from '../components/SelectDate'
 import { useState } from 'react'
 import SelectBar from '../components/SelectBar'
 import Button from '../components/Button'
+import axios from '../config/axios'
 
 
 function CreateTourPage() {
@@ -32,7 +33,20 @@ function CreateTourPage() {
     }
 
     const handleSaveTourProfile = async(e)=>{
-
+        const formData = new FormData()
+        formData.append('tourProfileImage',tourProfileImage)
+        formData.append('name',input.name)
+        formData.append('date',input.date)
+        formData.append('duration',input.duration)
+        formData.append('location',input.location)
+        formData.append('groupSize',input.groupSize)
+        formData.append('tourDetail',input.tourDetail)
+        formData.append('tourProgram',input.tourProgram)
+        formData.append('price',input.price)
+        formData.append('type',input.type)
+        const result = await axios.post('/tour/guide',formData)
+        console.log(false)
+        setToggle(false)
     }
 
     const handleChooseFile=(e)=>{
@@ -178,7 +192,7 @@ function CreateTourPage() {
                         src={URL.createObjectURL(tourProfileImage)} alt=''
                     />
                     <div className='flex justify-around p-2'>
-                        <button>save</button>
+                        <button onClick={handleSaveTourProfile}>save</button>
                         <button onClick={handleCancel}>cancel</button>
                     </div>
                 </div>
