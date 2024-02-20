@@ -10,23 +10,39 @@ import Button from '../components/Button'
 
 
 function CreateTourPage() {
+    
     const [input,setInput] = useState({
         name:'',
         date:'',
         duration:'',
         location:'',
         groupSize:'',
-        tourProfileImage:'',
         tourDetail:'',
         tourProgram:'',
         price:'',
         type:''
     })
+    const [tourProfileImage,setTourProfileImage] = useState(null)
     const [inputError,setInputError] = useState({})
+    const [toggle,setToggle] = useState(false)
 
     const handleChange = (e) =>{
         console.log(e.target.value)
         setInput({...input,[e.target.name]:e.target.value})
+    }
+
+    const handleSaveTourProfile = async(e)=>{
+
+    }
+
+    const handleChooseFile=(e)=>{
+        setTourProfileImage(e.target.files[0])
+        setToggle(true)
+    }
+
+    const handleCancel = () =>{
+        setTourProfileImage(null)
+        setToggle(false)
     }
 
     return (
@@ -52,7 +68,7 @@ function CreateTourPage() {
                    alt="cover img"  
                 >
                     Add Image : 
-                    <input type='file'/>
+                    
                 </button>
                 
             </div>
@@ -155,10 +171,26 @@ function CreateTourPage() {
                         />
                     </div>
             {/* profile */}
-                <div className='w-[210px] h-[280px] bg-gray-500'>
-                    add profile 
-                    <input type='file' accept="image/png, image/jpeg"/>
-                </div> 
+                {toggle
+                ?
+                <div>
+                    <img className='w-[210px] h-[280px]'
+                        src={URL.createObjectURL(tourProfileImage)} alt=''
+                    />
+                    <div className='flex justify-around p-2'>
+                        <button>save</button>
+                        <button onClick={handleCancel}>cancel</button>
+                    </div>
+                </div>
+                :
+                    <div className='w-[210px] h-[280px] bg-gray-500'>
+                        add profile 
+                        <input 
+                            type='file' accept="image/png, image/jpeg"
+                            onChange={handleChooseFile}
+                        />
+                    </div> 
+                }
                 <Button>Create Tour </Button>  
                     
                 </div>
