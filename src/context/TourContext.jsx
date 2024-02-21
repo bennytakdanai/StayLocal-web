@@ -18,6 +18,8 @@ export default function TourContextProvider (props){
         return result.data.tour
     })
 
+    
+
 
     return (
         <TourContext.Provider value={{getTourFromGuideId,getTourFromTourId}}>

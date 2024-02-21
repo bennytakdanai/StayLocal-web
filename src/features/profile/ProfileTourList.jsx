@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Button from '../../components/Button'
 import TripItem from '../../components/TripItem'
+import { Link } from 'react-router-dom'
 
 
 function ProfileTourList({user}) {
@@ -31,17 +32,16 @@ function ProfileTourList({user}) {
     <div>
         <div className='flex m-20 justify-around'>
             <div className=' text-5xl'>Trip List</div>
-            <Button>Create New Tour</Button>
+            <Link to={'/createtour'}>
+                <Button>Create New Tour</Button>
+            </Link>
         </div>
         <div className='flex flex-col items-center gap-10 mb-10'>
             {guideTours.map((el)=> {
                 console.log(el)
                 return <TripItem 
                     key={el.id}
-                    name={el.name}
-                    duration={el.duration} 
-                    price={el.price}
-                    date={el.date}
+                    guideTour={el}
                 />  
             }
             )}

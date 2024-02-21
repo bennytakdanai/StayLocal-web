@@ -1,13 +1,11 @@
 import React from 'react'
 import Header from '../layouts/Header'
-import cover from '../assets/cover.jpg'
-import ReviewStar from '../components/ReviewStar'
-import TextInput from '../components/TextInput'
-import SelectDate from '../components/SelectDate'
 import { useState } from 'react'
 import SelectBar from '../components/SelectBar'
 import Button from '../components/Button'
 import axios from '../config/axios'
+import { toast } from 'react-toastify'
+import validateTourCreate from '../features/validations/validate-tour'
 
 
 function CreateTourPage() {
@@ -28,25 +26,32 @@ function CreateTourPage() {
     const [toggle,setToggle] = useState(false)
 
     const handleChange = (e) =>{
-        console.log(e.target.value)
         setInput({...input,[e.target.name]:e.target.value})
     }
 
-    const handleSaveTourProfile = async(e)=>{
-        const formData = new FormData()
-        formData.append('tourProfileImage',tourProfileImage)
-        formData.append('name',input.name)
-        formData.append('date',input.date)
-        formData.append('duration',input.duration)
-        formData.append('location',input.location)
-        formData.append('groupSize',input.groupSize)
-        formData.append('tourDetail',input.tourDetail)
-        formData.append('tourProgram',input.tourProgram)
-        formData.append('price',input.price)
-        formData.append('type',input.type)
-        const result = await axios.post('/tour/guide',formData)
-        console.log(false)
-        setToggle(false)
+
+    const handleSubmit = async()=>{
+        try{
+            if(validateTourCreate(input)){
+                setInputError(validateTourCreate(input))
+            }
+            const formData = new FormData()
+            formData.append('tourProfileImage',tourProfileImage)
+            formData.append('name',input.name)
+            formData.append('date',input.date)
+            formData.append('duration',input.duration)
+            formData.append('location',input.location)
+            formData.append('groupSize',input.groupSize)
+            formData.append('tourDetail',input.tourDetail)
+            formData.append('tourProgram',input.tourProgram)
+            formData.append('price',input.price)
+            formData.append('type',input.type)
+            const result = await axios.post('/tour/guide',formData)
+            toast.success("tour created")
+            
+        }catch(err){
+            toast.error(err.response?.data.message)
+        }
     }
 
     const handleChooseFile=(e)=>{
@@ -74,7 +79,7 @@ function CreateTourPage() {
                         onChange={handleChange}
                         value={input.name}
                         /> 
-                        
+              {inputError?<small className=' text-red-600'>{inputError.name}</small>:<></>}          
             </div>
             <div className='flex justify-evenly items-center w-full'>
                 
@@ -100,6 +105,7 @@ function CreateTourPage() {
                         value={input.location}
                         /> 
                     </div>
+                    {inputError?<small className=' text-red-600'>{inputError.location}</small>:<></>}
             {/* duration */}
                     <div className='text-lg flex items-center gap-2'>
                         Duration : 
@@ -112,6 +118,7 @@ function CreateTourPage() {
                         value={input.duration}
                         /> 
                     </div>
+                    {inputError?<small className=' text-red-600'>{inputError.duration}</small>:<></>}
             {/* groupSize */}
                     <div className='text-lg flex items-center gap-2'>
                         Tour Size :  
@@ -125,6 +132,7 @@ function CreateTourPage() {
                         /> 
                         peoples 
                     </div>
+                    {inputError?<small className=' text-red-600'>{inputError.groupSize}</small>:<></>}
             {/* price */}
                     <div className='text-lg flex items-center gap-2'>
                         Price :  
@@ -138,6 +146,7 @@ function CreateTourPage() {
                         /> 
                         thB
                     </div>
+                    {inputError?<small className=' text-red-600'>{inputError.price}</small>:<></>}
             {/* date */}
                     <div className='text-lg flex items-center gap-2'>
                         Date : 
@@ -149,9 +158,11 @@ function CreateTourPage() {
                             value={input.date}
                         >
                         </input>
+                        {inputError?<small className=' text-red-600'>{inputError.tourProgram}</small>:<></>}
                     </div>
 
                 </div>
+            {/* detail */}
                 <div className=' flex-1 text-md p-5'>
                    DETAIL: 
                    <textarea
@@ -160,6 +171,7 @@ function CreateTourPage() {
                         onChange={handleChange}
                         value={input.tourDetail}
                     />
+                    {inputError?<small className=' text-red-600'>{inputError.tourDetail}</small>:<></>}
                 </div>
             </div>
             <div className='flex w-5/6 text-md py-10'>
@@ -172,6 +184,7 @@ function CreateTourPage() {
                         onChange={handleChange}
                         value={input.tourProgram}
                     />
+                    {inputError?<small className=' text-red-600'>{inputError.tourProgram}</small>:<></>}
             </div>
             <div className='flex-1 w-1/3 p-10 flex flex-col gap-5 items-center'>
             {/* type */}
@@ -191,21 +204,27 @@ function CreateTourPage() {
                     <img className='w-[210px] h-[280px]'
                         src={URL.createObjectURL(tourProfileImage)} alt=''
                     />
-                    <div className='flex justify-around p-2'>
-                        <button onClick={handleSaveTourProfile}>save</button>
+                    <div className='flex justify-around mt-1 p-2 border-2'>
                         <button onClick={handleCancel}>cancel</button>
                     </div>
                 </div>
                 :
-                    <div className='w-[210px] h-[280px] bg-gray-500'>
-                        add profile 
+                <div className='w-[210px] h-[280px] bg-gray-500 flex flex-col justify-center items-center'>
+                        {inputError?<small className=' text-red-600'>{inputError.tourProfileImage}</small>:<></>}
+                        <label 
+                            htmlFor="tourProfileImage"
+                            className='p-4 bg-slate-200 hover:cursor-pointer'
+                        >Click to add profile </label>
                         <input 
-                            type='file' accept="image/png, image/jpeg"
+                            type='file' id="tourProfileImage" 
+                            accept="image/png, image/jpeg"
+                            className=' hidden'
                             onChange={handleChooseFile}
                         />
+                        
                     </div> 
                 }
-                <Button>Create Tour </Button>  
+                <Button onclick={handleSubmit}>Create Tour </Button>  
                     
                 </div>
             </div>

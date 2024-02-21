@@ -1,7 +1,8 @@
 import React from 'react'
 import Button from './Button'
 
-function Modal() {
+function Modal({onclose,bookings}) {
+  
   return (
     <div>
         <div className="fixed bg-white inset-0 opacity-60" ></div>
@@ -9,11 +10,16 @@ function Modal() {
                 <div className="flex flex-col items-center bg-white rounded-lg shadow-lg border-2 p-10 " >        
                     <div className=" text-4xl text-center">Booking Details</div>
                     <div className="p-8 flex flex-col gap-3">
-                        <div>User1 : 5 peoples  Created at : 16/01/20  Updated at:20/01/20</div>
-                        <div>User1 : 2 peoples  Created at : 18/01/20  Updated at: -</div>
-                        <div>User1 : 1 peoples  Created at : 18/01/20  Updated at:19/01/20</div>
+                      {bookings.map((el,i)=>{
+                        return (
+                        <div key={el.id}>
+                          {i+1} : {el.numberOfPeople} peoples  
+                          Created at : {el.createdAt.slice(0,10)} Updated at: {el.updatedAt?.slice(0,10)}
+                        </div>)
+                      })}
+                        
                     </div>
-                    <Button>Close</Button>
+                    <Button onclick={onclose}>Close</Button>
                 </div>
                   
             </div>
