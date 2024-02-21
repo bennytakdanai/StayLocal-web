@@ -5,7 +5,7 @@ function Card({src}) {
   return (
     <img 
         className=' w-[210px] h-[280px] bg-gray-500 rounded-lg'
-        src={vietnam} 
+        src={src? src : vietnam} 
         alt="tour card" 
     />
   )

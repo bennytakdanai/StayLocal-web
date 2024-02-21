@@ -31,7 +31,7 @@ function TripItem({guideTour,setLoading,deleteTourFromTourId}) {
   return (
     <div className='w-2/3 h-[320px] bg-[#F1F5F9] p-5 pl-10 flex justify-between'>
         
-            <Card/>
+            <Card src={guideTour.tourProfileImage}/>
             <div className='flex flex-col text-left'>
                 <div className='text-3xl m-6 text-center'>{guideTour.name}</div>
                 <div className='text-xl m-2 text-center'>{sumOfBookingPeople} people has booked</div>

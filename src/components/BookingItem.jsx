@@ -14,6 +14,7 @@ function BookingItem({booking,setLoading,cancelBooking,editClientBooking}) {
   const price = booking.tour.price
   const date = booking.tour.date
   const groupSize = booking.tour.groupSize
+  const tourProfileImage = booking.tour.tourProfileImage
 
   const [toggle,setToggle] = useState(false)
   const [count,setCount] = useState(numberOfPeople)
@@ -48,7 +49,7 @@ function BookingItem({booking,setLoading,cancelBooking,editClientBooking}) {
   return (
     <div className='w-2/3 h-[320px] bg-[#F1F5F9] p-5 pl-10 flex justify-between'>
         
-            <Card/>
+            <Card src={tourProfileImage}/>
             <div className='flex flex-col text-left'>
                 <div className='text-3xl m-6 text-center'>{name}</div>
                 <div className='text-xl m-2 text-center items-center'>
