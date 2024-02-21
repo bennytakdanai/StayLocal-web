@@ -35,7 +35,6 @@ function ProfileBookingList({user}) {
         </div>
         <div className='flex flex-col items-center gap-10 mb-10'>
             {booking.map((el)=> {
-         
                 return <BookingItem 
                     key={el.id}
                     booking ={el}

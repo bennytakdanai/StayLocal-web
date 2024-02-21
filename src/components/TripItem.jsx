@@ -3,9 +3,11 @@ import { faTrash,faPenToSquare,faEye } from '@fortawesome/free-solid-svg-icons'
 import Card from './Card'
 import { useState } from 'react'
 import Modal from './Modal'
+import useTour from '../hooks/useTour'
 
-function TripItem({guideTour}) {
-  const [toggleModal,setToggleModal] = useState(false)
+function TripItem({guideTour,setLoading,deleteTourFromTourId}) {
+  const [toggleModal,setToggleModal,] = useState(false)
+
 
   const sumOfBookingPeople = 
     guideTour.bookings
@@ -13,6 +15,18 @@ function TripItem({guideTour}) {
     :0
 
   const handleSeeBooking = (e) => setToggleModal(true)
+
+  const handleDelete = async(id)=> {
+    try{
+      setLoading(true)
+      const result = await deleteTourFromTourId(id)
+      console.log(result)
+    }catch(err){
+      console.log(err)
+    }finally{
+      setLoading(false)
+    }
+  }
   
   return (
     <div className='w-2/3 h-[320px] bg-[#F1F5F9] p-5 pl-10 flex justify-between'>
@@ -27,14 +41,17 @@ function TripItem({guideTour}) {
 
             </div>
             <div className='flex flex-col gap-5'>
-                <FontAwesomeIcon className=' text-xl hover:cursor-pointer' icon={faTrash} />
+                <FontAwesomeIcon 
+                    className=' text-xl hover:cursor-pointer' icon={faTrash} 
+                    onClick={()=>handleDelete(guideTour.id)}
+                />
                 <FontAwesomeIcon className=' text-xl hover:cursor-pointer' icon={faPenToSquare} />
                 <FontAwesomeIcon 
                   className=' text-xl hover:cursor-pointer' icon={faEye}
                   onClick={handleSeeBooking}
                 />
             </div>
-            
+
             {toggleModal&&
             <Modal 
               onclose={e=>setToggleModal(false)}

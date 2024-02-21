@@ -16,7 +16,6 @@ const router = createBrowserRouter([
         element: (
         <RedirectIfAuth>
             <LoginPage/>
-
         </RedirectIfAuth>
         )
     },

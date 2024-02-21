@@ -28,7 +28,7 @@ export default function BookingContextProvider(props){
         try{
             const result = await axios.delete(`/booking/${id}`)
             console.log(result)
-            // toast.success('cancel complete')
+            toast.success('cancel booking complete')
             return result.data.bookingCancel
 
         }catch(err){

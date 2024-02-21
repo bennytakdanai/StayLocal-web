@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom'
 
 
 function ProfileTourList({user}) {
-
-    const {getTourFromGuideId} = useTour()
+    
+    const {getTourFromGuideId,deleteTourFromTourId} = useTour()
     const [guideTours,setGuideTours] = useState([])
+    const [loading,setLoading] = useState(false)
 
     let guideId = user.id
 
@@ -26,7 +27,7 @@ function ProfileTourList({user}) {
             }
         } 
         run(guideId)
-    },[])
+    },[loading])
 
   return (
     <div>
@@ -38,10 +39,11 @@ function ProfileTourList({user}) {
         </div>
         <div className='flex flex-col items-center gap-10 mb-10'>
             {guideTours.map((el)=> {
-                console.log(el)
                 return <TripItem 
                     key={el.id}
                     guideTour={el}
+                    setLoading={setLoading}
+                    deleteTourFromTourId={deleteTourFromTourId}
                 />  
             }
             )}
