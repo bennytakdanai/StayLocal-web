@@ -31,9 +31,14 @@ function CreateTourPage() {
 
 
     const handleSubmit = async()=>{
+        setInputError({})
+        console.log(validateTourCreate(input))
+        console.log(input)
         try{
             if(validateTourCreate(input)){
                 setInputError(validateTourCreate(input))
+                toast.error('please fill data')
+                return
             }
             const formData = new FormData()
             formData.append('tourProfileImage',tourProfileImage)
@@ -56,6 +61,7 @@ function CreateTourPage() {
 
     const handleChooseFile=(e)=>{
         setTourProfileImage(e.target.files[0])
+        setInput({...input,tourProfileImage:"have pic"})
         setToggle(true)
     }
 

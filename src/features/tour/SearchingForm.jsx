@@ -15,23 +15,32 @@ function SearchingForm() {
         location:''
     })
     const [provinces,setProvinces] = useState([])
-
-    const handleChange = (e) =>{
-        console.log(e.target.value)
-        setInput({...input,[e.target.name]:e.target.value})
-    }
-
+    
     useEffect(()=>{
         const run= async() =>{ 
             const result = await axios.get('/tour/province')
-            const data = result.data.provinces.unshift('Where')
+            result.data.provinces.unshift('Where')
             setProvinces(result.data.provinces) 
            
         }
         run()
     },[])
+
+    const handleChange = (e) =>{
+        setInput({...input,[e.target.name]:e.target.value})
+    }
+
+    const handleFindTrip = async() =>{
+        console.log(input)
+        const formData = new FormData()
+        formData.append('date',input.date)
+        formData.append('type',input.type)
+        formData.append('price',input.price)
+        formData.append('location',input.location)
+        const result = await axios.get('/tour/homepage',formData)
+        console.log(result)
+    }    
     
-    console.log(provinces)
     
 
   return (
@@ -61,7 +70,7 @@ function SearchingForm() {
             {/* Price */}
             <SelectBar 
                 optionArr={
-                    ['Tour cost','less than 1500','1500-3000','3000-5000','more than 5000']}
+                    ['Tour cost','0-1500','1500-3000','3000-5000','more than 5000']}
                 name= 'price'
                 onChange={handleChange}
                 value={input.price}
@@ -74,7 +83,7 @@ function SearchingForm() {
                 onChange={handleChange}
                 value={input.location}
             />
-            <Button>Find trip</Button>
+            <Button onclick={handleFindTrip}>Find trip</Button>
         </div>
         <div className='grid grid-cols-3 gap-5 p-5'>
             <Card />

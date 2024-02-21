@@ -13,9 +13,9 @@ const tourCreateSchema = Joi.object({
         'string.emty':'duration is required',
         'any.required':'duration is required'
     }),
-    location: Joi.string().pattern(/^[a-zA-Z0-9]\s[a-zA-Z0-9]/).required().messages({
+    location: Joi.string().pattern(/^[a-zA-Z0-9]{2,},\s[a-zA-Z0-9]{2,}$/).required().messages({
         'string.emty':'location is required',
-        'string.pattern.base':'location should be in this pattern "District Province"',
+        'string.pattern.base':'location should be in this pattern "District, Province"',
         'any.required':'location is required'
     }),
     groupSize:Joi.number().required().messages({
@@ -23,7 +23,6 @@ const tourCreateSchema = Joi.object({
         'any.required':'groupSize is required'
     }),
     tourProfileImage: Joi.required().messages({
-        'string.emty':'tourProfileImage is required',
         'any.required':'tourProfileImage is required'
     }),
     tourDetail: Joi.string().required().trim().messages({
