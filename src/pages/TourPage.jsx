@@ -10,6 +10,7 @@ import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useParams } from 'react-router-dom'
 import BookingForm from '../features/tour/BookingForm'
+import FootagePreview from '../features/tour/FootagePreview'
 
 function TourPage() {
     const [tour,setTour] = useState({})
@@ -28,7 +29,6 @@ function TourPage() {
         const run = async(tourId)=>{
             try{
                 const tourFound = await getTourFromTourId(tourId)
-                console.log(tourFound)
                 setTour(tourFound)
             }catch(err){
                 console.log(err)
@@ -42,12 +42,13 @@ function TourPage() {
     <div className='flex flex-col items-center'>
         
         <Header/>
-        <h1 className='text-5xl p-5 mt-5 mb-5'>{tour.name}</h1>
-        <div className='flex justify-evenly items-center w-full'>
+        <h1 className='text-5xl p-5 mt-5 mb-5 text-center'>{tour.name}</h1>
+        {/* <div className='flex justify-evenly items-center w-full'>
             <FontAwesomeIcon className=' text-5xl' icon={faCaretLeft} />
             <img className=' w-5/6' src={cover}  alt="cover img"  />
             <FontAwesomeIcon className=' text-5xl' icon={faCaretRight} />
-        </div>
+        </div> */}
+        <FootagePreview tourId={tourId}/>
         <div className='flex w-5/6 p-10'>
             <div className=' flex-1 flex flex-col gap-4  pt-10 '>
                 <p className='text-lg'>Location : {tour.location}</p>
