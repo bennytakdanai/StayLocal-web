@@ -5,12 +5,12 @@ import { useState } from 'react'
 
 function PlusMinus({props}) {
   
-  const [count,setCount,groupSize] = props
+  const [count,setCount,groupSizeLeft] = props
   
   return (
     <div className='flex gap-2'>
         <FontAwesomeIcon 
-          onClick={()=> setCount(count==groupSize? groupSize :count+1)} 
+          onClick={()=> setCount(count==groupSizeLeft? groupSizeLeft :count+1)} 
           icon={faCirclePlus} 
         />
         {count}

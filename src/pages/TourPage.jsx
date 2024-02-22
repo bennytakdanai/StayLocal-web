@@ -17,20 +17,26 @@ function TourPage() {
     const {id:tourId} = useParams()
     const {getTourFromTourId} = useTour()
     const {user} = useAuth()
-    // console.log(user)
+
+    const sumOfBookingPeople = 
+        tour.bookings
+        ? tour.bookings.reduce((acc,curr)=> acc+curr.numberOfPeople ,0) 
+        : 0
+    console.log(sumOfBookingPeople)
 
     useEffect(()=>{
         const run = async(tourId)=>{
             try{
                 const tourFound = await getTourFromTourId(tourId)
+                console.log(tourFound)
                 setTour(tourFound)
             }catch(err){
                 console.log(err)
             }
         }
-        run(tourId) /////////// mock id
+        run(tourId) 
     },[])
-    // console.log(tour)
+    console.log(tour)
 
   return (
     <div className='flex flex-col items-center'>
@@ -65,7 +71,7 @@ function TourPage() {
                 <BookingForm 
                     tourId={tourId} 
                     user={user}
-                    groupSize={tour.groupSize}
+                    groupSizeLeft={tour.groupSize-sumOfBookingPeople}
                 />
                 
             </div>

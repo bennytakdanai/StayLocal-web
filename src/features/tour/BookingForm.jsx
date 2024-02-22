@@ -6,7 +6,7 @@ import { useState } from 'react'
 import useBooking from '../../hooks/useBooking'
 import { toast } from 'react-toastify'
 
-function BookingForm({user,tourId,groupSize}) {
+function BookingForm({user,tourId,groupSizeLeft}) {
   tourId= +tourId
   const[count,setCount] = useState(1)
 
@@ -26,7 +26,7 @@ function BookingForm({user,tourId,groupSize}) {
   return (
     <div className='flex flex-col items-center p-5 gap-2 bg-[#F1F5F9]'>
         <div className='flex items-center gap-2'>
-          Group <PlusMinus props={[count,setCount,groupSize]}/> people
+          Group <PlusMinus props={[count,setCount,groupSizeLeft]}/> people
         </div>
         {user
         ?
