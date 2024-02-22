@@ -96,6 +96,7 @@ function SearchingForm() {
                     src={el.tourProfileImage}
                     name={el.name}
                     date={el.date}
+                    searchCard='true'
                     />
                     
                 </div>
