@@ -15,15 +15,21 @@ function SearchingForm() {
         location:''
     })
     const [provinces,setProvinces] = useState([])
+    const [cardList,setCardList] = useState([])
     
     useEffect(()=>{
-        const run= async() =>{ 
+        const getProvince= async() =>{ 
             const result = await axios.get('/tour/province')
             result.data.provinces.unshift('Where')
             setProvinces(result.data.provinces) 
-           
         }
-        run()
+        const getAllTour= async()=>{
+            const result = await axios.post('/tour/homepage',input)
+            console.log(input)
+            setCardList(result.data.homePageTour)
+        }
+        getProvince()
+        getAllTour()
     },[])
 
     const handleChange = (e) =>{
@@ -31,18 +37,13 @@ function SearchingForm() {
     }
 
     const handleFindTrip = async() =>{
-        console.log(input)
-        const formData = new FormData()
-        formData.append('date',input.date)
-        formData.append('type',input.type)
-        formData.append('price',input.price)
-        formData.append('location',input.location)
-        const result = await axios.get('/tour/homepage',formData)
-        console.log(result)
+        const result = await axios.post('/tour/homepage',input)
+        console.log(result.data)
+        setCardList(result.data.homePageTour)
+        console.log(cardList)
     }    
     
     
-
   return (
     <>
         <div className='flex flex-col items-center p-5 gap-4 m-5 w-3/4' id='tourSection'>
@@ -86,12 +87,21 @@ function SearchingForm() {
             <Button onclick={handleFindTrip}>Find trip</Button>
         </div>
         <div className='grid grid-cols-3 gap-5 p-5'>
-            <Card />
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
+            {cardList.map((el)=>{
+                return (
+                <div>
+                    <Card 
+                    key={el.id} 
+                    src={el.tourProfileImage}
+                    name={el.name}
+                    date={el.date}
+                    />
+                    
+                </div>
+                
+                )
+            })}
+           
     
         </div>
     </>
