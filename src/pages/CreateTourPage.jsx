@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import axios from '../config/axios'
 import { toast } from 'react-toastify'
 import validateTourCreate from '../features/validations/validate-tour'
-
+import ModalFootage from '../components/ModalFootage'
 
 function CreateTourPage() {
     
@@ -24,11 +24,17 @@ function CreateTourPage() {
     const [tourProfileImage,setTourProfileImage] = useState(null)
     const [inputError,setInputError] = useState({})
     const [toggle,setToggle] = useState(false)
+    const [openFootageModal,setOpenFootageModal] = useState(false)
+    const [savedFootages,setSavedFootages] = useState([])
 
     const handleChange = (e) =>{
         setInput({...input,[e.target.name]:e.target.value})
     }
 
+    const handleSaveFootage = (footages) =>{
+        setSavedFootages(footages)
+        setOpenFootageModal(false)
+    }
 
     const handleSubmit = async()=>{
         setInputError({})
@@ -52,6 +58,19 @@ function CreateTourPage() {
             formData.append('price',input.price)
             formData.append('type',input.type)
             const result = await axios.post('/tour/guide',formData)
+
+            console.log(result)
+
+            const formDataFootage = new FormData()
+            formDataFootage.append('tourId',result.data.tour.id)
+            savedFootages.forEach((file)=>{
+                formDataFootage.append('footageLink',file)
+            })
+
+            console.log(savedFootages)
+            const footageResult = await axios.post('/footage',formDataFootage)
+
+            console.log(footageResult)
             toast.success("tour created")
             
         }catch(err){
@@ -74,26 +93,29 @@ function CreateTourPage() {
         <div className='flex flex-col items-center'>
             
             <Header/>
+            {openFootageModal && 
+            <ModalFootage 
+                onclose={()=>setOpenFootageModal(false)}
+                onSaveFootage={handleSaveFootage}
+            />}
+
             {/* name */}
             <div className='text-lg flex items-center gap-2 my-10'>
-                        Enter Name : 
-                        <input 
-                        type='text' 
-                        className=' bg-[#F1F5F9] p-2 rounded w-[800px] text-5xl'
-                        name='name'
-                        placeholder='Mekong Magic: SUP & Sunset Escape'
-                        onChange={handleChange}
-                        value={input.name}
-                        /> 
+                Enter Name : 
+                <input 
+                    type='text' 
+                    className=' bg-[#F1F5F9] p-2 rounded w-[800px] text-5xl'
+                    name='name'
+                    placeholder='Mekong Magic: SUP & Sunset Escape'
+                    onChange={handleChange}
+                    value={input.name}
+                /> 
               {inputError?<small className=' text-red-600'>{inputError.name}</small>:<></>}          
             </div>
             <div className='flex justify-evenly items-center w-full'>
                 
-                <button className=' w-5/6 bg-gray-500 aspect-video'
-                   alt="cover img"  
-                >
-                    Add Image : 
-                    
+                <button className=' w-5/6 bg-gray-500 aspect-video' onClick={()=>setOpenFootageModal(true)}>
+                    Click To Add Footage : 
                 </button>
                 
             </div>
