@@ -92,6 +92,7 @@ function SearchingForm() {
                 <div>
                     <Card 
                     key={el.id} 
+                    id={el.id}
                     src={el.tourProfileImage}
                     name={el.name}
                     date={el.date}

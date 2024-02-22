@@ -1,17 +1,13 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import cover from '../assets/cover.jpg'
 import Header from '../layouts/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretRight,faCaretLeft } from '@fortawesome/free-solid-svg-icons'
-import Button from '../components/Button'
 import ReviewStar from '../components/ReviewStar'
-import PlusMinus from '../components/PlusMinus'
 import useTour from '../hooks/useTour'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
-import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import BookingForm from '../features/tour/BookingForm'
 
@@ -21,7 +17,7 @@ function TourPage() {
     const {id:tourId} = useParams()
     const {getTourFromTourId} = useTour()
     const {user} = useAuth()
-    console.log(user)
+    // console.log(user)
 
     useEffect(()=>{
         const run = async(tourId)=>{
