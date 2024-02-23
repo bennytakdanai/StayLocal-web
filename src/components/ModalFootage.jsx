@@ -38,9 +38,9 @@ function ModalFootage({onclose,onSaveFootage}) {
 
   return (
     <div>
-        <div className="fixed bg-white inset-0 opacity-60" ></div>
+        <div className="fixed bg-white inset-0 opacity-10" ></div>
         <div className="fixed inset-0 flex items-center justify-center" >
-            <div className="flex flex-col gap-10 w-full h-full items-center bg-white rounded-lg shadow-lg border-2 p-10 " >        
+            <div className="flex flex-col gap-10 w-5/6 h-full items-center bg-white rounded-lg shadow-lg border-2 p-10 " >        
                 <div className=" text-4xl text-center">Add Footage</div>
                 
                 <div className='flex justify-evenly items-center w-full'>
