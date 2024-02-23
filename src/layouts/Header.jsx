@@ -1,7 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
-
+import { HashLink } from 'react-router-hash-link'
+ 
 function Header() {
   const {user,logout} = useAuth()
   return (
@@ -16,9 +17,9 @@ function Header() {
             <p>Profile</p>
           </Link>
 
-          <Link to={{pathname: '/', hash: '#tourSection'}}>
+          <HashLink smooth to={'/#tourSection'}>
             <p>Stay & Tour</p>
-          </Link>
+          </HashLink>
           {user
           ?
           <Link to={'/'}>

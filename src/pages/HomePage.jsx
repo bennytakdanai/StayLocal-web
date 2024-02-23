@@ -21,7 +21,7 @@ function HomePage() {
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem suscipit optio excepturi, sequi maxime velit, odit, ipsam consequuntur voluptatum quibusdam ab voluptatem beatae aut consequatur. Nostrum optio repudiandae molestias modi.</p>
         </div>
         <img src={tea} className=' w-full'></img>
-        
+    <div id='tourSection'></div>   
     <SearchingForm/>
         
     </div>
