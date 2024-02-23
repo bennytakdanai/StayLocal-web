@@ -18,7 +18,7 @@ function FootagePreview({tourId}) {
     }
     
     const handleNext =() =>{
-        if(footageIndex < 4){
+        if(footageIndex < footages.length-1){
             setFootageIndex(footageIndex+1)
         }
         
